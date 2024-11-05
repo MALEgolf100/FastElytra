@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "fastelytra",
+  "version": "${version}",
+  "name": "FastElytra",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/fastelytra/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "org.fastelytra.fastelytra.client.FastelytraClient"
+    ],
+    "main": [
+      "org.fastelytra.fastelytra.Fastelytra"
+    ]
+  },
+  "mixins": [
+    "fastelytra.mixins.json",
+    {
+      "config": "fastelytra.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
