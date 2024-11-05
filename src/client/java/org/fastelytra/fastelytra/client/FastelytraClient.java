@@ -4,9 +4,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.util.InputUtil;
 
 public class FastelytraClient implements ClientModInitializer {
+
+    private boolean jumpKeyPreviouslyPressed = false; // Track the state of the jump key
 
     @Override
     public void onInitializeClient() {
@@ -24,6 +25,17 @@ public class FastelytraClient implements ClientModInitializer {
                             player.getRotationVector().z * 0.05
                     );
                 }
+
+                // Check if the player is flying with an elytra and presses the jump key
+                boolean jumpKeyPressed = minecraftClient.options.jumpKey.isPressed();
+
+                if (player.isFallFlying() && jumpKeyPressed && !jumpKeyPreviouslyPressed) {
+                    // Make the player stop using the elytra if the jump key was just pressed
+                    player.stopFallFlying();
+                }
+
+                // Update the previous state of the jump key
+                jumpKeyPreviouslyPressed = jumpKeyPressed;
             }
         });
     }
