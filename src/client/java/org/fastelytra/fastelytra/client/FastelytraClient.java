@@ -22,9 +22,9 @@ public class FastelytraClient implements ClientModInitializer {
                 if (player.isFallFlying() && minecraftClient.options.forwardKey.isPressed()) {
                     // Increase the player's flight speed when holding W with elytra
                     player.addVelocity(
-                            player.getRotationVector().x * 0.05,
-                            player.getRotationVector().y * 0.05,
-                            player.getRotationVector().z * 0.05
+                            player.getRotationVector().x * 0.5,
+                            player.getRotationVector().y * 0.5,
+                            player.getRotationVector().z * 0.5
                     );
                 }
 
