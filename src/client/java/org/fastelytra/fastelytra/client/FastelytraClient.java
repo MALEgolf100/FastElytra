@@ -17,7 +17,7 @@ public class FastelytraClient implements ClientModInitializer {
                 MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
                 // Check if the player is flying with an elytra and holding the "W" key (forward)
-                if (player.isFallFlying() && minecraftClient.options.forwardKey.isPressed()) {
+                if (player.isGliding() && minecraftClient.options.forwardKey.isPressed()) {
                     // Increase the player's flight speed when holding W with elytra
                     player.addVelocity(
                             player.getRotationVector().x * 0.05,
@@ -29,9 +29,9 @@ public class FastelytraClient implements ClientModInitializer {
                 // Check if the player is flying with an elytra and presses the jump key
                 boolean jumpKeyPressed = minecraftClient.options.jumpKey.isPressed();
 
-                if (player.isFallFlying() && jumpKeyPressed && !jumpKeyPreviouslyPressed) {
+                if (player.isGliding() && jumpKeyPressed && !jumpKeyPreviouslyPressed) {
                     // Make the player stop using the elytra if the jump key was just pressed
-                    player.stopFallFlying();
+                    player.stopGliding();
                 }
 
                 // Update the previous state of the jump key
