@@ -35,7 +35,7 @@ public class FastelytraClient implements ClientModInitializer {
 
                 // Fast Elytra functionality
                 if (config.get("enableFastElytra").getAsBoolean()) {
-                    if (player.isGliding() && minecraftClient.options.forwardKey.isPressed()) {
+                    if (player.isFallFlying() && minecraftClient.options.forwardKey.isPressed()) {
                         player.addVelocity(
                                 player.getRotationVector().x * 0.05,
                                 player.getRotationVector().y * 0.05,
@@ -48,8 +48,8 @@ public class FastelytraClient implements ClientModInitializer {
                 if (!config.get("disableJumpKeyStopsGliding").getAsBoolean()) {
                     boolean jumpKeyPressed = minecraftClient.options.jumpKey.isPressed();
 
-                    if (player.isGliding() && jumpKeyPressed && !jumpKeyPreviouslyPressed) {
-                        player.stopGliding();
+                    if (player.isFallFlying() && jumpKeyPressed && !jumpKeyPreviouslyPressed) {
+                        player.stopFallFlying();
                     }
 
                     jumpKeyPreviouslyPressed = jumpKeyPressed;
