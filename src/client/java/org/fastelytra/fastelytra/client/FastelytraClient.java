@@ -76,7 +76,7 @@ public class FastelytraClient implements ClientModInitializer {
         config = new JsonObject();
         config.addProperty("enableFastElytra", true);
         config.addProperty("disableJumpKeyStopsGliding", false);
-        config.addProperty("allowOnServers", true);
+        config.addProperty("allowOnServers", false);
 
         saveConfig();
     }
