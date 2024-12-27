@@ -28,9 +28,9 @@ public class FastelytraClient implements ClientModInitializer {
                 PlayerEntity player = client.player;
                 MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
-                // Check if mod functions are allowed on servers
-                if (!config.get("allowOnServers").getAsBoolean() && client.getCurrentServerEntry() != null) {
-                    return; // Disable mod functions on servers if not allowed
+                // Disable mod functions on servers
+                if (client.getCurrentServerEntry() != null) {
+                    return;
                 }
 
                 // Fast Elytra functionality
@@ -76,7 +76,6 @@ public class FastelytraClient implements ClientModInitializer {
         config = new JsonObject();
         config.addProperty("enableFastElytra", true);
         config.addProperty("disableJumpKeyStopsGliding", false);
-        config.addProperty("allowOnServers", false);
 
         saveConfig();
     }
