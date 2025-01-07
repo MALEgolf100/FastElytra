@@ -2,13 +2,19 @@ package org.fastelytra.fastelytra.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Formatting;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -18,28 +24,41 @@ public class FastelytraClient implements ClientModInitializer {
     private static final Path CONFIG_PATH = new File("config/fastelytra.json").toPath();
     private static final Gson GSON = new Gson();
     private JsonObject config;
+    private KeyBinding boostKey;
 
     @Override
     public void onInitializeClient() {
         loadConfig();
+
+        // Register custom keybind
+        boostKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.fastelytra.boost", // Translation key
+                InputUtil.Type.KEYSYM, // Input type
+                GLFW.GLFW_KEY_B, // Default key
+                "category.fastelytra" // Keybind category
+        ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
                 PlayerEntity player = client.player;
                 MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
-                // Disable mod functions on servers
-                if (client.getCurrentServerEntry() != null) {
-                    return;
+                // Check if mod functions are allowed on servers
+                if (!config.get("allowOnServers").getAsBoolean() && client.getCurrentServerEntry() != null) {
+                    return; // Disable mod functions on servers if not allowed
                 }
 
                 // Fast Elytra functionality
                 if (config.get("enableFastElytra").getAsBoolean()) {
-                    if (player.isGliding() && minecraftClient.options.forwardKey.isPressed()) {
+                    boolean useWKey = config.get("useWKeyForBoost").getAsBoolean();
+                    boolean isBoostKeyPressed = boostKey.isPressed();
+
+                    if (player.isGliding() && (useWKey && minecraftClient.options.forwardKey.isPressed() || isBoostKeyPressed)) {
+                        double speedBoost = config.get("speedBoostMultiplier").getAsDouble();
                         player.addVelocity(
-                                player.getRotationVector().x * 0.05,
-                                player.getRotationVector().y * 0.05,
-                                player.getRotationVector().z * 0.05
+                                player.getRotationVector().x * speedBoost,
+                                player.getRotationVector().y * speedBoost,
+                                player.getRotationVector().z * speedBoost
                         );
                     }
                 }
@@ -76,6 +95,9 @@ public class FastelytraClient implements ClientModInitializer {
         config = new JsonObject();
         config.addProperty("enableFastElytra", true);
         config.addProperty("disableJumpKeyStopsGliding", false);
+        config.addProperty("allowOnServers", false);
+        config.addProperty("speedBoostMultiplier", 0.05); // Default speed boost multiplier
+        config.addProperty("useWKeyForBoost", true); // Allow W key to boost by default
 
         saveConfig();
     }
