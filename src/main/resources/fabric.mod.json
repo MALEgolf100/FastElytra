@@ -3,8 +3,8 @@
   "id": "fastelytra",
   "version": "${version}",
   "name": "FastElytra",
-  "description": "",
-  "authors": [],
+  "description": "Buffs the elytra to make it a lot faster and useful.",
+  "authors": ["Iamliterallybasil"],
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/icon.png",
@@ -27,6 +27,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": ">=1.21.3"
+    "minecraft": ">=1.21.5"
   }
 }
