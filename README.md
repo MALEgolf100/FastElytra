@@ -3,4 +3,4 @@ Specal thanks to Bawnorton on discord for helping me find out how to find method
 
 A link to the Curseforge page can be found here: https://www.curseforge.com/minecraft/mc-mods/fast-elytra
 
-A link to the community discord can be found here: https://discord.gg/bfXqKPFKN8
+A link to the community discord can be found here: https://discord.gg/hzMK4JyP6r
