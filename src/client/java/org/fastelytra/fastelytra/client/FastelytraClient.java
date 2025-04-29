@@ -20,11 +20,11 @@ import com.google.gson.JsonObject;
 
 public class FastelytraClient implements ClientModInitializer {
 
-    private boolean jumpKeyPreviouslyPressed = false; // Track the state of the jump key
-    private static final Path CONFIG_PATH = new File("config/fastelytra.json").toPath();
-    private static final Gson GSON = new Gson();
-    private JsonObject config;
-    private KeyBinding boostKey;
+    public boolean jumpKeyPreviouslyPressed = false; // Track the state of the jump key
+    public static final Path CONFIG_PATH = new File("config/fastelytra.json").toPath();
+    public static final Gson GSON = new Gson();
+    public static JsonObject config;
+    public KeyBinding boostKey;
 
     @Override
     public void onInitializeClient() {
@@ -102,7 +102,7 @@ public class FastelytraClient implements ClientModInitializer {
         saveConfig();
     }
 
-    private void saveConfig() {
+    public static void saveConfig() {
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
             Files.write(CONFIG_PATH, GSON.toJson(config).getBytes());

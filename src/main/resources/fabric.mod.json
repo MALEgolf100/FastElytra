@@ -15,6 +15,9 @@
     ],
     "main": [
       "org.fastelytra.fastelytra.Fastelytra"
+    ],
+    "modmenu": [
+      "org.fastelytra.fastelytra.client.compatibility.ModMenuCompat"
     ]
   },
   "mixins": [
