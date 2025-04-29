@@ -28,7 +28,7 @@ public class ModMenuCompat implements ModMenuApi {
                             Text.literal("Enable Fast Elytra"),
                             FastelytraClient.config.get("enableFastElytra").getAsBoolean())
                     .setDefaultValue(true)
-                    .setTooltip(Text.literal("Enable or disable fast flying with Elytra."))
+                    .setTooltip(Text.literal("Enable or disable the mod."))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("enableFastElytra", newValue))
                     .build()
             );
@@ -48,7 +48,7 @@ public class ModMenuCompat implements ModMenuApi {
                             Text.literal("Allow On Servers"),
                             FastelytraClient.config.get("allowOnServers").getAsBoolean())
                     .setDefaultValue(false)
-                    .setTooltip(Text.literal("Allow boosting on multiplayer servers."))
+                    .setTooltip(Text.literal("Allows use on multiplayer servers."))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("allowOnServers", newValue))
                     .build()
             );
@@ -70,7 +70,7 @@ public class ModMenuCompat implements ModMenuApi {
                             Text.literal("Use W Key For Boost"),
                             FastelytraClient.config.get("useWKeyForBoost").getAsBoolean())
                     .setDefaultValue(true)
-                    .setTooltip(Text.literal("Use the W key for boosting instead of boost key."))
+                    .setTooltip(Text.literal("Use the W key for boosting."))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("useWKeyForBoost", newValue))
                     .build()
             );
