@@ -8,6 +8,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class FastelytraClient implements ClientModInitializer {
     public boolean jumpKeyPreviouslyPressed = false; // Track the state of the jump key
     public static final Path CONFIG_PATH = new File("config/fastelytra.json").toPath();
     public static final Gson GSON = new Gson();
+    private static final KeyBinding.Category FAST_ELYTRA_CATEGORY = KeyBinding.Category.create(Identifier.of("fastelytra", "main"));
     public static JsonObject config;
     public KeyBinding boostKey;
 
@@ -33,9 +35,9 @@ public class FastelytraClient implements ClientModInitializer {
         // Register custom keybind
         boostKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.fastelytra.boost", // Translation key
-                InputUtil.Type.KEYSYM, // Input type
-                GLFW.GLFW_KEY_B, // Default key
-                "category.fastelytra" // Keybind category
+                InputUtil.Type.KEYSYM,
+                InputUtil.GLFW_KEY_B,
+                FAST_ELYTRA_CATEGORY
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
