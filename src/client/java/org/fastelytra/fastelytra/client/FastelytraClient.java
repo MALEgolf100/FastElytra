@@ -2,12 +2,15 @@ package org.fastelytra.fastelytra.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.glfw.GLFW;
+import org.fastelytra.fastelytra.Fastelytra;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +25,9 @@ public class FastelytraClient implements ClientModInitializer {
     public boolean jumpKeyPreviouslyPressed = false;
     public static final Path CONFIG_PATH = new File("config/fastelytra.json").toPath();
     public static final Gson GSON = new Gson();
-
+    KeyMapping.Category CATEGORY = KeyMapping.Category.register(
+            Identifier.fromNamespaceAndPath(Fastelytra.MOD_ID, "fast_elytra_category")
+    );
     public static JsonObject config;
     public KeyMapping boostKey;
 
@@ -30,12 +35,12 @@ public class FastelytraClient implements ClientModInitializer {
     public void onInitializeClient() {
         loadConfig();
 
-        boostKey = new KeyMapping(
+        boostKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.fastelytra.boost",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_B,
-                KeyMapping.Category.MISC
-        );
+                CATEGORY
+        ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
