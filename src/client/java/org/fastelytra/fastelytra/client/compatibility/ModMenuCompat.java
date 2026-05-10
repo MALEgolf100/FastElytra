@@ -17,54 +17,54 @@ public class ModMenuCompat implements ModMenuApi {
         return parent -> {
             ConfigBuilder builder = ConfigBuilder.create()
                     .setParentScreen(parent)
-                    .setTitle(Component.literal("Fast Elytra Settings"));
+                    .setTitle(Component.translatable("config.fastelytra.title"));
 
-            ConfigCategory general = builder.getOrCreateCategory(Component.literal("General Settings"));
+            ConfigCategory general = builder.getOrCreateCategory(Component.translatable("config.fastelytra.category.general"));
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
             general.addEntry(entryBuilder.startBooleanToggle(
-                            Component.literal("Enable Fast Elytra"),
+                            Component.translatable("config.fastelytra.enable_fast_elytra"),
                             FastelytraClient.config.get("enableFastElytra").getAsBoolean())
                     .setDefaultValue(true)
-                    .setTooltip(Component.literal("Enable or disable the mod."))
+                    .setTooltip(Component.translatable("config.fastelytra.enable_fast_elytra.tooltip"))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("enableFastElytra", newValue))
                     .build()
             );
 
             general.addEntry(entryBuilder.startBooleanToggle(
-                            Component.literal("Disable Jump Key Stops Gliding"),
+                            Component.translatable("config.fastelytra.disable_jump_stops_gliding"),
                             FastelytraClient.config.get("disableJumpKeyStopsGliding").getAsBoolean())
                     .setDefaultValue(false)
-                    .setTooltip(Component.literal("Prevent jump key from stopping gliding."))
+                    .setTooltip(Component.translatable("config.fastelytra.disable_jump_stops_gliding.tooltip"))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("disableJumpKeyStopsGliding", newValue))
                     .build()
             );
 
             general.addEntry(entryBuilder.startBooleanToggle(
-                            Component.literal("Allow On Servers"),
+                            Component.translatable("config.fastelytra.allow_on_servers"),
                             FastelytraClient.config.get("allowOnServers").getAsBoolean())
                     .setDefaultValue(false)
-                    .setTooltip(Component.literal("Allows use on multiplayer servers."))
+                    .setTooltip(Component.translatable("config.fastelytra.allow_on_servers.tooltip"))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("allowOnServers", newValue))
                     .build()
             );
 
             general.addEntry(entryBuilder.startFloatField(
-                            Component.literal("Speed Boost Multiplier"),
+                            Component.translatable("config.fastelytra.speed_boost_multiplier"),
                             (float) FastelytraClient.config.get("speedBoostMultiplier").getAsDouble())
                     .setDefaultValue(0.05f)
                     .setMin(0.01f)
                     .setMax(1.0f)
-                    .setTooltip(Component.literal("Change how fast your Elytra boosting is."))
+                    .setTooltip(Component.translatable("config.fastelytra.speed_boost_multiplier.tooltip"))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("speedBoostMultiplier", newValue))
                     .build()
             );
 
             general.addEntry(entryBuilder.startBooleanToggle(
-                            Component.literal("Use W Key For Boost"),
+                            Component.translatable("config.fastelytra.use_w_key_for_boost"),
                             FastelytraClient.config.get("useWKeyForBoost").getAsBoolean())
                     .setDefaultValue(true)
-                    .setTooltip(Component.literal("Use the W key for boosting."))
+                    .setTooltip(Component.translatable("config.fastelytra.use_w_key_for_boost.tooltip"))
                     .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("useWKeyForBoost", newValue))
                     .build()
             );

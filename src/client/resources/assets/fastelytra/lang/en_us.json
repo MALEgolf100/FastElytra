@@ -1,4 +1,19 @@
 {
   "key.fastelytra.boost": "Elytra Boost",
-  "key.category.fastelytra.fast_elytra_category": "Fast Elytra"
+  "key.category.fastelytra.fast_elytra_category": "Fast Elytra",
+
+  "config.fastelytra.title": "Fast Elytra Settings",
+  "config.fastelytra.category.general": "General Settings",
+  "config.fastelytra.enable_fast_elytra": "Enable Fast Elytra",
+  "config.fastelytra.enable_fast_elytra.tooltip": "Enable or disable the mod.",
+  "config.fastelytra.disable_jump_stops_gliding": "Disable Jump Key Stops Gliding",
+  "config.fastelytra.disable_jump_stops_gliding.tooltip": "Prevent jump key from stopping gliding.",
+  "config.fastelytra.allow_on_servers": "Allow On Servers",
+  "config.fastelytra.allow_on_servers.tooltip": "Allows use on multiplayer servers.",
+  "config.fastelytra.speed_boost_multiplier": "Speed Boost Multiplier",
+  "config.fastelytra.speed_boost_multiplier.tooltip": "Change how fast your Elytra boosting is.",
+  "config.fastelytra.use_w_key_for_boost": "Use W Key For Boost",
+  "config.fastelytra.use_w_key_for_boost.tooltip": "Use the W key for boosting.",
+
+  "modmenu.descriptionTranslation.fastelytra": "Buffs the elytra to make it a lot faster and useful."
 }

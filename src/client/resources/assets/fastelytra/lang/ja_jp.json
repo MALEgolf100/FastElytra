@@ -1,0 +1,19 @@
+{
+  "key.fastelytra.boost": "エリトラブースト",
+  "key.category.fastelytra.fast_elytra_category": "高速エリトラ",
+
+  "config.fastelytra.title": "Fast Elytraの設定",
+  "config.fastelytra.category.general": "一般の設定",
+  "config.fastelytra.enable_fast_elytra": "高速エリトラを有効化",
+  "config.fastelytra.enable_fast_elytra.tooltip": "MODを有効化または無効化する",
+  "config.fastelytra.disable_jump_stops_gliding": "ジャンプキーによる滑走停止を無効化する",
+  "config.fastelytra.disable_jump_stops_gliding.tooltip": "ジャンプキーによる滑走停止を無効化する",
+  "config.fastelytra.allow_on_servers": "サーバーで使用可能にする",
+  "config.fastelytra.allow_on_servers.tooltip": "マルチプレイサーバーで使用できるようにします",
+  "config.fastelytra.speed_boost_multiplier": "スピードブーストの強さ",
+  "config.fastelytra.speed_boost_multiplier.tooltip": "エリトラのブースト速度を変更します",
+  "config.fastelytra.use_w_key_for_boost": "Wキーを使ってブーストする",
+  "config.fastelytra.use_w_key_for_boost.tooltip": "Wキーを使ってブーストします",
+
+  "modmenu.descriptionTranslation.fastelytra": "エリトラを強化して、今よりずっと速く、使いやすくします。"
+}
