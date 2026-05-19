@@ -7,8 +7,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
@@ -21,7 +21,7 @@ import com.google.gson.JsonObject;
 
 public class FastelytraClient implements ClientModInitializer {
 
-    public boolean jumpKeyPreviouslyPressed = false; // Track the state of the jump key
+    public boolean jumpKeyPreviouslyPressed = false;
     public static final Path CONFIG_PATH = new File("config/fastelytra.json").toPath();
     public static final Gson GSON = new Gson();
     private static final KeyBinding.Category FAST_ELYTRA_CATEGORY = KeyBinding.Category.create(Identifier.of("fastelytra", "main"));
@@ -32,9 +32,8 @@ public class FastelytraClient implements ClientModInitializer {
     public void onInitializeClient() {
         loadConfig();
 
-        // Register custom keybind
         boostKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.fastelytra.boost", // Translation key
+                "key.fastelytra.boost",
                 InputUtil.Type.KEYSYM,
                 InputUtil.GLFW_KEY_B,
                 FAST_ELYTRA_CATEGORY
@@ -45,12 +44,12 @@ public class FastelytraClient implements ClientModInitializer {
                 PlayerEntity player = client.player;
                 MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
-                // Check if mod functions are allowed on servers
+                // Server restriction
                 if (!config.get("allowOnServers").getAsBoolean() && client.getCurrentServerEntry() != null) {
-                    return; // Disable mod functions on servers if not allowed
+                    return;
                 }
 
-                // Fast Elytra functionality
+                // Fast Elytra boost
                 if (config.get("enableFastElytra").getAsBoolean()) {
                     boolean useWKey = config.get("useWKeyForBoost").getAsBoolean();
                     boolean isBoostKeyPressed = boostKey.isPressed();
@@ -65,7 +64,22 @@ public class FastelytraClient implements ClientModInitializer {
                     }
                 }
 
-                // Jump key stops gliding functionality
+                // Speed limiter runs after boost so the cap is always enforced
+                if (config.get("enableSpeedLimit").getAsBoolean() && player.isGliding()) {
+                    double speedLimit = config.get("speedLimit").getAsDouble();
+                    // Convert m/s → blocks/tick (20 ticks per second)
+                    double maxSpeedPerTick = speedLimit / 20.0;
+
+                    Vec3d velocity = player.getVelocity();
+                    double currentSpeed = velocity.length();
+
+                    if (currentSpeed > maxSpeedPerTick) {
+                        double scale = maxSpeedPerTick / currentSpeed;
+                        player.setVelocity(velocity.multiply(scale));
+                    }
+                }
+
+                // Jump key stops gliding
                 if (!config.get("disableJumpKeyStopsGliding").getAsBoolean()) {
                     boolean jumpKeyPressed = minecraftClient.options.jumpKey.isPressed();
 
@@ -84,6 +98,9 @@ public class FastelytraClient implements ClientModInitializer {
             try {
                 String content = new String(Files.readAllBytes(CONFIG_PATH));
                 config = GSON.fromJson(content, JsonObject.class);
+                // Backfill new keys for existing config files that predate this feature
+                if (!config.has("enableSpeedLimit")) config.addProperty("enableSpeedLimit", false);
+                if (!config.has("speedLimit"))        config.addProperty("speedLimit", 30.0);
             } catch (IOException e) {
                 e.printStackTrace();
                 createDefaultConfig();
@@ -98,8 +115,10 @@ public class FastelytraClient implements ClientModInitializer {
         config.addProperty("enableFastElytra", true);
         config.addProperty("disableJumpKeyStopsGliding", false);
         config.addProperty("allowOnServers", false);
-        config.addProperty("speedBoostMultiplier", 0.05); // Default speed boost multiplier
-        config.addProperty("useWKeyForBoost", true); // Allow W key to boost by default
+        config.addProperty("speedBoostMultiplier", 0.05);
+        config.addProperty("useWKeyForBoost", true);
+        config.addProperty("enableSpeedLimit", false);
+        config.addProperty("speedLimit", 30.0);
 
         saveConfig();
     }

@@ -15,5 +15,10 @@
   "config.fastelytra.use_w_key_for_boost": "Wキーを使ってブーストする",
   "config.fastelytra.use_w_key_for_boost.tooltip": "Wキーを使ってブーストします",
 
+  "config.fastelytra.enable_speed_limit":"速度制限を有効化",
+  "config.fastelytra.enable_speed_limit.tooltip": "飛行中の速度を制限します。",
+  "config.fastelytra.speed_limit": "速度制限",
+  "config.fastelytra.speed_limit.tooltip": "制限する速度を変更します。",
+
   "modmenu.descriptionTranslation.fastelytra": "エリトラを強化して、今よりずっと速く、使いやすくします。"
 }
