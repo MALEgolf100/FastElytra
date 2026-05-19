@@ -69,6 +69,21 @@ public class FastelytraClient implements ClientModInitializer {
                     }
                 }
 
+                // Speed limiter runs after boost so the cap is always enforced
+                if (config.get("enableSpeedLimit").getAsBoolean() && player.isFallFlying()) {
+                    double speedLimit = config.get("speedLimit").getAsDouble();
+                    // Convert m/s → blocks/tick (20 ticks per second)
+                    double maxSpeedPerTick = speedLimit / 20.0;
+
+                    Vec3 velocity = player.getDeltaMovement();
+                    double currentSpeed = velocity.length();
+
+                    if (currentSpeed > maxSpeedPerTick) {
+                        double scale = maxSpeedPerTick / currentSpeed;
+                        player.setDeltaMovement(velocity.scale(scale));
+                    }
+                }
+
                 // Jump key stops gliding
                 if (!config.get("disableJumpKeyStopsGliding").getAsBoolean()) {
                     boolean jumpKeyPressed = minecraftClient.options.keyJump.isDown();
@@ -88,6 +103,9 @@ public class FastelytraClient implements ClientModInitializer {
             try {
                 String content = new String(Files.readAllBytes(CONFIG_PATH));
                 config = GSON.fromJson(content, JsonObject.class);
+                // Backfill new keys for existing config files that predate this feature
+                if (!config.has("enableSpeedLimit")) config.addProperty("enableSpeedLimit", false);
+                if (!config.has("speedLimit"))        config.addProperty("speedLimit", 30.0);
             } catch (IOException e) {
                 e.printStackTrace();
                 createDefaultConfig();
@@ -104,6 +122,8 @@ public class FastelytraClient implements ClientModInitializer {
         config.addProperty("allowOnServers", false);
         config.addProperty("speedBoostMultiplier", 0.05);
         config.addProperty("useWKeyForBoost", true);
+        config.addProperty("enableSpeedLimit", false);
+        config.addProperty("speedLimit", 30.0);
 
         saveConfig();
     }

@@ -15,5 +15,10 @@
   "config.fastelytra.use_w_key_for_boost": "Use W Key For Boost",
   "config.fastelytra.use_w_key_for_boost.tooltip": "Use the W key for boosting.",
 
+  "config.fastelytra.enable_speed_limit":"Enable Speed Limit",
+  "config.fastelytra.enable_speed_limit.tooltip": "This will limit the speed you can go while flying.",
+  "config.fastelytra.speed_limit": "Speed Limit",
+  "config.fastelytra.speed_limit.tooltip": "This will change the speed you can go while flying.",
+
   "modmenu.descriptionTranslation.fastelytra": "Buffs the elytra to make it a lot faster and useful."
 }

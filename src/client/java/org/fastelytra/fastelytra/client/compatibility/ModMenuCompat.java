@@ -69,6 +69,28 @@ public class ModMenuCompat implements ModMenuApi {
                     .build()
             );
 
+            // Speed limiter toggle
+            general.addEntry(entryBuilder.startBooleanToggle(
+                            Component.translatable("config.fastelytra.enable_speed_limit"),
+                            FastelytraClient.config.get("enableSpeedLimit").getAsBoolean())
+                    .setDefaultValue(false)
+                    .setTooltip(Component.translatable("config.fastelytra.enable_speed_limit.tooltip"))
+                    .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("enableSpeedLimit", newValue))
+                    .build()
+            );
+
+            // Speed limit value (m/s)
+            general.addEntry(entryBuilder.startFloatField(
+                            Component.translatable("config.fastelytra.speed_limit"),
+                            (float) FastelytraClient.config.get("speedLimit").getAsDouble())
+                    .setDefaultValue(100.0f)
+                    .setMin(1.0f)
+                    .setMax(1000.0f)
+                    .setTooltip(Component.translatable("config.fastelytra.speed_limit.tooltip"))
+                    .setSaveConsumer(newValue -> FastelytraClient.config.addProperty("speedLimit", newValue))
+                    .build()
+            );
+
             builder.setSavingRunnable(FastelytraClient::saveConfig);
             return builder.build();
         };
