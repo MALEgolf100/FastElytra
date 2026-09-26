@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Fast Elytra",
   "description": "Buffs the elytra to make it a lot faster and useful.",
-  "authors": ["MALEgolf100"],
+  "authors": ["BasilCrafter"],
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/icon.png",
@@ -30,7 +30,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabricloader": ">=0.18.4",
-    "minecraft": ">=26.1",
+    "minecraft": ">=26.3",
     "cloth-config": "*"
   }
 }

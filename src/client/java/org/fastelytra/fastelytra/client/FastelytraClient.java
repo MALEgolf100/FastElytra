@@ -9,7 +9,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import org.lwjgl.glfw.GLFW;
 import org.fastelytra.fastelytra.Fastelytra;
 
 import java.io.File;
@@ -37,8 +36,8 @@ public class FastelytraClient implements ClientModInitializer {
 
         boostKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.fastelytra.boost",
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_B,
+                InputConstants.Type.KEYBOARD,
+                InputConstants.KEY_B,
                 CATEGORY
         ));
 
